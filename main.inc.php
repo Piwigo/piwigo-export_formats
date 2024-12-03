@@ -5,7 +5,7 @@ Plugin Name: Auto Formats
 Plugin URI: auto
 Author: Piwigo team
 Author URI: https://github.com/Piwigo
-Description: Download SEO formats.
+Description: Download export configurable formats.
 */
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');

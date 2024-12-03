@@ -95,6 +95,11 @@
   gap: 15px;
 }
 
+.af-modal p,
+.af-modal span {
+  font-size: 14px !important;
+}
+
 .af-modal-btn.close {
   background-color: #ecf0f1;
 }
