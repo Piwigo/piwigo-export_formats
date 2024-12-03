@@ -3,7 +3,7 @@ const af_modal = $3('#af_modal');
 const af_img = $3('#af_modal_img');
 let af_cropper;
 let af_clicked = false;
-let af_curr_format = ""
+let af_curr_format = "";
 
 $3(function () {
   af_display();
@@ -15,7 +15,7 @@ $3(function () {
       const no_crop_size = parseInt($3(this).data('af_size'));
       af_curr_format = $3(this).data('af');
       $(this).find('.af-icon-dl').removeClass('af-hidden');
-      af_get_export(af_curr_format, {
+      af_get_export({
         width: no_crop_size,
         height: 0,
         x: 0,
