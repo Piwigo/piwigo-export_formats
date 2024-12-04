@@ -24,6 +24,7 @@ function af_loc_end_picture()
   global $template, $conf;
 
   if (!isset($conf['auto_formats'])) return;
+  if (!is_admin()) return;
   $template->set_filename('auto_formats_picture', AF_REALPATH . '/template/picture.tpl');
   $template->assign(array(
     'AF_PATH' => AF_PATH,
