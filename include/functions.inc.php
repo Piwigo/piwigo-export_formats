@@ -17,14 +17,26 @@ function af_init()
 }
 
 /**
+ * `Auto Formats` : is triggered at the beginning of the picture page
+ */
+function af_loc_begin_picture()
+{
+  global $user;
+
+  // Get user enabled_high config before an
+  // potentiel change by others plugins (e.g Custom Download Link)
+  $user['af_enabled_high'] = $user['enabled_high'];
+}
+
+/**
  * `Auto Formats` : is triggered at the end of the picture page
  */
 function af_loc_end_picture()
 {
-  global $template, $conf;
+  global $template, $conf, $page, $user;
 
   if (!isset($conf['auto_formats'])) return;
-  if (!is_admin()) return;
+  if (!$user['af_enabled_high']) return;
   $template->set_filename('auto_formats_picture', AF_REALPATH . '/template/picture.tpl');
   $template->assign(array(
     'AF_PATH' => AF_PATH,
@@ -60,7 +72,7 @@ function af_add_methods($arr)
     array(
       'hidden' => false,
       'post_only' => true,
-      'admin_only' => true,
+      'admin_only' => false,
     )
   );
 }
@@ -75,6 +87,10 @@ function af_get_export($params)
   $settings = $params['settings'];
   // Check input params
   check_input_parameter('image_id', $params, false, PATTERN_ID);
+  if (!af_is_authorized($params['image_id'])){
+    return new PwgError(401, 'Acces denied');
+  }
+
   foreach ($settings as $key => $option)
   {
     if (!preg_match('/^\d+(\.\d+)?$/', $option))
@@ -82,7 +98,7 @@ function af_get_export($params)
       return new PwgError(WS_ERR_INVALID_PARAM, $key.' must be an number');
     }
   }
-  // check format ?
+  // check format
   if (!isset($conf['auto_formats']) and !isset($conf['auto_formats'][ $params['auto_format'] ]))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, $params['auto_format'].' not found');
@@ -141,8 +157,48 @@ SELECT *
   // TODO : enhance history table
   pwg_log($params['image_id'], 'high');
 
+  // TODO: add dimensions to files
   header('Content-Type: image/'.$format['type']);
-  header('Content-Disposition: attachment; filename="'.get_filename_wo_extension($result['file']).'_'.$params['auto_format'].'.'.$format['type'].'"');
+  header('Content-Disposition: attachment; filename="'.get_filename_wo_extension($result['file']).'_'.$params['auto_format'].'_'.$format['dimensions'].'.'.$format['type'].'"');
   echo $output;
   exit;
+}
+
+/**
+ * `Auto Formats` : Check if the user is authorized to export.
+ * Compatible plugin :
+ * - Custom Download Link
+ */
+function af_is_authorized($image_id)
+{
+  global $user;
+
+  // check if user can download
+  if (!$user['enabled_high'])
+  {
+    return false;
+  }
+
+  // check if user have access
+  $query='
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON category_id = id
+  WHERE image_id = '.$image_id.'
+'.get_sql_condition_FandF(
+  array(
+      'forbidden_categories' => 'category_id',
+      'forbidden_images' => 'image_id',
+    ),
+  '    AND'
+  ).'
+  LIMIT 1
+;';
+
+  if (pwg_db_num_rows(pwg_query($query))<1)
+  {
+    return false;
+  }
+
+  return true;
 }

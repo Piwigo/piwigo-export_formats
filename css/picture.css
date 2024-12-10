@@ -9,11 +9,17 @@
   justify-content: center;
 }
 
+.af-download h4 {
+  margin: 0;
+}
+
 .af-buttons {
  display: flex;
  align-items: center;
  justify-content: center;
  gap: 10px;
+ flex-wrap: wrap;
+ margin: 20px 0;
 }
 
 .af-button {

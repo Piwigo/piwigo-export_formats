@@ -37,5 +37,6 @@ define('AF_ADMIN', get_root_url() . 'admin.php?page=plugin-' . AF_ID);
 
 include_once(AF_PATH . 'include/functions.inc.php');
 add_event_handler('init', 'af_init');
+add_event_handler('loc_begin_picture', 'af_loc_begin_picture', -10);
 add_event_handler('loc_end_picture', 'af_loc_end_picture');
 add_event_handler('ws_add_methods', 'af_add_methods', EVENT_HANDLER_PRIORITY_NEUTRAL);
