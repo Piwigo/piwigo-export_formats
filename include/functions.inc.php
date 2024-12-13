@@ -23,7 +23,7 @@ function af_loc_begin_picture()
 {
   global $user;
 
-  // Get user enabled_high config before an
+  // Get user enabled_high config before a
   // potentiel change by others plugins (e.g Custom Download Link)
   $user['af_enabled_high'] = $user['enabled_high'];
 }
@@ -56,8 +56,7 @@ function af_add_methods($arr)
     'autoformats.getExport',
     'af_get_export',
     array(
-      'image_id' => array(
-        'type'=>WS_TYPE_FLOAT),
+      'image_id' => array('type' => WS_TYPE_ID),
       'auto_format' => array(
         'flag' => WS_TYPE_NOTNULL,
         'info' => 'Format from your $conf.auto-formats'
@@ -85,9 +84,8 @@ function af_get_export($params)
   global $conf;
 
   $settings = $params['settings'];
-  // Check input params
-  check_input_parameter('image_id', $params, false, PATTERN_ID);
-  if (!af_is_authorized($params['image_id'])){
+  if (!af_is_authorized($params['image_id']))
+  {
     return new PwgError(401, 'Acces denied');
   }
 
@@ -180,7 +178,7 @@ function af_is_authorized($image_id)
   }
 
   // check if user have access
-  $query='
+  $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON category_id = id
