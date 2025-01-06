@@ -33,8 +33,10 @@ function af_loc_begin_picture()
  */
 function af_loc_end_picture()
 {
-  global $template, $conf, $page, $user;
+  global $template, $conf, $picture, $user;
 
+  $current_picture = $picture['current'];
+  if (!in_array($current_picture['file_ext'], $conf['picture_ext'])) return;
   if (!isset($conf['auto_formats'])) return;
   if (!$user['af_enabled_high']) return;
   $template->set_filename('auto_formats_picture', AF_REALPATH . '/template/picture.tpl');
@@ -113,6 +115,12 @@ SELECT *
   if (empty($result))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'No images found');
+  }
+
+  $picture_ext = get_extension($result['file']);
+  if (!in_array($picture_ext, $conf['picture_ext']))
+  {
+    return new PwgError(403, 'The file is not a picture');
   }
 
   $src_image = new SrcImage($result);
