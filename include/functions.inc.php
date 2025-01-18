@@ -2,7 +2,7 @@
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 /**
- * `Auto Formats` : aut_formats init
+ * `Auto Formats` : auto_formats init
  */
 function af_init()
 {
@@ -36,175 +36,124 @@ function af_loc_end_picture()
   global $template, $conf, $picture, $user;
 
   $current_picture = $picture['current'];
-  if (!in_array($current_picture['file_ext'], $conf['picture_ext'])) return;
-  if (!isset($conf['auto_formats'])) return;
-  if (!$user['af_enabled_high']) return;
+  $af_config = safe_unserialize($conf['af_config']);
+  $all_export = af_get_all_export_btn(true);
+  if (!in_array($current_picture['file_ext'], af_get_available_ext())) return;
+  // if (!isset($conf['auto_formats'])) return;
+  // if (!$user['af_enabled_high']) return;
+  if (!$all_export) return;
+  if ('admin' === $af_config['permission'] and !is_admin()) return;
+  $group_by_user = af_get_group_by_user();
+  if ('admin' !== $af_config['permission'] and !in_array($af_config['permission'], $group_by_user)) return;
+
+  $compatibily = in_array('custom_download_link', af_get_plugins_list()) and 'link' === $af_config['show_as'];
+  
   $template->set_filename('auto_formats_picture', AF_REALPATH . '/template/picture.tpl');
   $template->assign(array(
     'AF_PATH' => AF_PATH,
-    'AF_BUTTONS' => $conf['auto_formats']
+    //'AF_BUTTONS' => $conf['auto_formats'],
+    'AF_BUTTONS' => $all_export,
+    'AF_SHOW_AS' => $compatibily ? 'inside' : $af_config['show_as']
   ));
   $template->parse('auto_formats_picture');
 }
 
 /**
- * `Auto Formats` : add new pwg method
+ * `Auto Formats` : get available extensions
  */
-function af_add_methods($arr)
+function af_get_available_ext()
 {
-  $service = &$arr[0];
-
-  $service->addMethod(
-    'autoformats.getExport',
-    'af_get_export',
-    array(
-      'image_id' => array('type' => WS_TYPE_ID),
-      'auto_format' => array(
-        'flag' => WS_TYPE_NOTNULL,
-        'info' => 'Format from your $conf.auto-formats'
-      ),
-      'settings' => array(
-        'flags' => WS_PARAM_FORCE_ARRAY, WS_PARAM_OPTIONAL,
-        'info' => 'Settings : width, height, x, y',
-      ),
-    ),
-    '',
-    null,
-    array(
-      'hidden' => false,
-      'post_only' => true,
-      'admin_only' => false,
-    )
+  return array(
+    'png',
+    'jpg',
+    'jpeg',
+    'webp'
   );
 }
 
 /**
- * `Auto Formats` : method getExport
+ * `Auto Formats` : get export button by id
  */
-function af_get_export($params)
+function af_get_export_by_id($id)
 {
-  global $conf;
-
-  $settings = $params['settings'];
-  if (!af_is_authorized($params['image_id']))
-  {
-    return new PwgError(401, 'Acces denied');
-  }
-
-  foreach ($settings as $key => $option)
-  {
-    if (!preg_match('/^\d+(\.\d+)?$/', $option))
-    {
-      return new PwgError(WS_ERR_INVALID_PARAM, $key.' must be an number');
-    }
-  }
-  // check format
-  if (!isset($conf['auto_formats']) and !isset($conf['auto_formats'][ $params['auto_format'] ]))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, $params['auto_format'].' not found');
-  }
-  $format = $conf['auto_formats'][ $params['auto_format' ]];
-
+  if (!preg_match(PATTERN_ID, $id)) return false;
   $query = '
-SELECT *
-  FROM '. IMAGES_TABLE .'
-  WHERE id = '. $params['image_id'] .'
-;';
+SELECT * FROM '.AF_TABLE.'
+  WHERE id = '.$id.'
+  ;';
 
   $result = pwg_db_fetch_assoc(pwg_query($query));
-  if (empty($result))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'No images found');
-  }
-
-  $picture_ext = get_extension($result['file']);
-  if (!in_array($picture_ext, $conf['picture_ext']))
-  {
-    return new PwgError(403, 'The file is not a picture');
-  }
-
-  $src_image = new SrcImage($result);
-  $crop = false;
-  $resize = $format['dimensions'];
-  if (true === $format['crop'])
-  {
-    $cropped_image = DerivativeImage::get_one(IMG_MEDIUM, $result);
-    $original_size = $src_image->get_size();
-    $medium_size = $cropped_image->get_size();
-    
-    // calcul ratio
-    $ratio = $original_size[0] / $medium_size[0];
-    // calcul conversion
-    $x = $settings['x'] * $ratio;
-    $y = $settings['y'] * $ratio;
-    $width = $settings['width'] * $ratio;
-    $height = $settings['height'] * $ratio;
-
-    $crop = $width.'x'.$height.'+'.$x.'+'.$y;
-    $resize .= '!';
-  }
-  
-  // Prepare exec
-  $exec = $conf['ext_imagick_dir'].'convert ';
-  $exec.= $src_image->get_path();
-  $exec.= $format['crop'] ? ' -crop '.$crop.'!' : '';
-  $exec.= ' -filter Lanczos';
-  $exec.= ' -resize '.$resize;
-  $exec.= ' -strip -quality 95 -interlace line -sampling-factor 4:2:2';
-  $exec.= ' '.$format['type'].':-';
-
-  //exec
-  $output = @shell_exec($exec);
-  if (empty($output))
-  {
-    return new PwgError(WS_ERR_INVALID_PARAM, 'Error when converting image with ImageMagick');
-  }
-
-  // TODO : enhance history table
-  pwg_log($params['image_id'], 'high');
-
-  // TODO: add dimensions to files
-  header('Content-Type: image/'.$format['type']);
-  header('Content-Disposition: attachment; filename="'.get_filename_wo_extension($result['file']).'_'.$params['auto_format'].'_'.$format['dimensions'].'.'.$format['type'].'"');
-  echo $output;
-  exit;
+  if ($result) return $result;
+  return false;
 }
 
 /**
- * `Auto Formats` : Check if the user is authorized to export.
- * Compatible plugin :
- * - Custom Download Link
+ * `Auto Formats` : get all export button
  */
-function af_is_authorized($image_id)
+function af_get_all_export_btn($available = false)
+{
+  $query = '
+SELECT *
+  FROM '.AF_TABLE.'
+';
+
+  if ($available)
+  {
+    $query .= 'WHERE activated = \'true\'';
+  }
+
+  $query .= ';';
+
+  $result = query2array($query);
+  if (!$result)
+  {
+    return false;
+  } else {
+    return $result;
+  }
+}
+
+/**
+ * `Auto Formats` : get group by user_id
+ */
+function af_get_group_by_user()
 {
   global $user;
 
-  // check if user can download
-  if (!$user['enabled_high'])
-  {
-    return false;
-  }
-
-  // check if user have access
   $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON category_id = id
-  WHERE image_id = '.$image_id.'
-'.get_sql_condition_FandF(
-  array(
-      'forbidden_categories' => 'category_id',
-      'forbidden_images' => 'image_id',
-    ),
-  '    AND'
-  ).'
-  LIMIT 1
+SELECT group_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id = '.$user['id'].'
 ;';
 
-  if (pwg_db_num_rows(pwg_query($query))<1)
+  $result = query2array($query, null, 'group_id');
+  if ($result) return $result;
+  return false;
+}
+
+/**
+ * `Auto Formats` : get plugins list
+ * 
+ * copy from core of Piwigo
+ */
+function af_get_plugins_list()
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
+
+  $plugins = new plugins();
+  $plugins->sort_fs_plugins('name');
+  $plugin_list = array();
+
+  foreach ($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
-    return false;
+    if (isset($plugins->db_plugins_by_id[$plugin_id]))
+    {
+      $state = $plugins->db_plugins_by_id[$plugin_id]['state'];
+      if ('active' === $state) {
+        $plugin_list[] = $plugin_id;
+      };
+    }
   }
 
-  return true;
+  return $plugin_list;
 }

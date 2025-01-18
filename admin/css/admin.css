@@ -1,0 +1,350 @@
+#af_example_line,
+.af-hidden {
+  display: none;
+}
+
+.af-loading {
+  font-size: 25px;
+  margin: 0;
+}
+
+.af-export-content p,
+.af-delete-content p,
+.af-hidden,
+.af-config p {
+  margin: 0;
+}
+
+.af-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.af-config {
+  text-align: start;
+  gap: 30px;
+  font-size: 16px;
+}
+
+.af-add-format {
+  width: fit-content;
+}
+
+.af-tab-header,
+.af-tab-line {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1.5fr 0.5fr 1fr;
+  text-align: start;
+}
+
+.af-tab-header p {
+  color: #a0a0a0;
+  font-weight: 700;
+}
+
+.af-tab-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.af-tab-line {
+  background: #fafafa;
+  box-shadow: 0px 2px 4px #00000024;
+  height: 45px;
+  border-radius: 5px;
+}
+
+.af-tab-line p:first-child {
+  padding-left: 10px;
+}
+.af-line:hover {
+  background: #FFD7AD;
+}
+
+.af-tab-name,
+.af-tab-resize-dimensions {
+  font-weight: bold;
+}
+
+.af-tab-resize {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.af-tab-resize span {
+  min-width: 70px;
+}
+
+.af-tab-action {
+  margin: auto 0;
+  text-align: end;
+}
+
+.af-tab-action span {
+  font-size: 20px;
+  color: #3a3a3a;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.af-tab-edit:hover,
+.af-tab-view:hover {
+  color: #ffa646;
+}
+
+.af-tab-delete:hover {
+  color: #d75745;
+}
+
+.af-action {
+  opacity: 0;
+}
+
+.af-export-content,
+.af-delete-content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -48%);
+  text-align: left;
+  align-items: center;
+  padding: 30px;
+  width: 400px;
+}
+
+.af-icon-header .af-icon {
+  border-radius: 9999px;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.af-config .af-icon,
+.af-icon-text {
+  font-size: 14px;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.af-export-title {
+  color: #3c3c3c;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 10px 0 !important;
+}
+
+.af-export-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.af-export-field {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0px;
+  width: 100%;
+}
+
+.af-export-field .font-checkbox {
+  font-size: 1.1em;
+  width: fit-content;
+}
+
+.af-export-field-label {
+  color: #a4a4a4;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.af-export-infos {
+  color: #000000;
+  font-size: 12px;
+}
+
+.af-export-input {
+  color: #353535;
+  background-color: #f3f3f3;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 2px;
+}
+
+.af-export-radio {
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+}
+
+.af-export-radio .font-checkbox {
+  padding-top: 10px;
+}
+
+.af-export-radio-tab {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.af-export-radio-infos {
+  font-size: 12px;
+}
+
+.af-tiptip {
+  color: #7A7A7A;
+}
+
+.af-export-radio-one {
+  padding-left: 25px;
+}
+
+.af-export-radio-both,
+.af-export-radio-custom {
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.af-export-radio-one .font-checkbox,
+.af-export-radio-one .af-input,
+.af-export-radio-both,
+.af-export-radio-both .af-input,
+.af-export-radio-custom,
+.af-export-radio-custom .af-input,
+.af-export-radio-w,
+.af-export-radio-h {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.af-export-radio-one .af-input,
+.af-export-radio-both .af-input,
+.af-export-radio-custom .af-input {
+  background-color: #F3F3F3;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.af-export-radio-one input,
+.af-export-radio-both input,
+.af-export-radio-custom input {
+  border: none;
+  background-color: transparent;
+  max-width: 100px;
+}
+
+.af-export-footer,
+.af-delete-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.af-export-footer-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.af-export-close {
+  cursor: pointer;
+  color: #a4a4a4;
+  font-size: 1.1em;
+  font-weight: bold;
+  align-self: center;
+}
+
+.af-export-close:hover{
+  color: #474747;
+}
+
+.af-export-save,
+.af-delete-btn,
+.af-delete-close {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  background-color: #FFA646;
+  color: #3C3C3C;
+}
+
+.af-export-save span,
+.af-export-save::before {
+  margin-right: 5px;
+}
+
+.af-export-save:hover {
+  background-color: #FF7700;
+}
+
+.af-delete-btn {
+  border-radius: 5px;
+  color: #FFFFFF;
+  background-color: #D75745 !important;
+}
+
+.af-delete-btn:hover {
+  background-color: #B24434 !important;
+}
+
+.af-delete-close {
+  border-radius: 5px;
+  background-color: #EDF0F1 !important;
+}
+
+.af-delete-close:hover {
+  background-color: #BEC3C7 !important;
+}
+
+.af-delete-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3C3C3C;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.af-config-permissions .font-checkbox,
+.af-config-select,
+.af-config-show .font-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.af-config-permissions,
+.af-config-show {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.af-config .af-icon-header {
+  padding-bottom: 15px;
+}
+
+.af-config-group {
+  width: fit-content;
+  margin-left: 25px;
+  color: #353535;
+  background-color: transparent;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  padding: 2px 5px;
+  border: 2px solid #D3D3D3;
+  border-radius: 5px;
+}

@@ -7,17 +7,21 @@ let af_curr_format = "";
 
 $3(function () {
   af_display();
-  $3('.af-button').on('click', function () {
-    const do_crop = $3(this).data('af_crop');
-    if (do_crop) {
-      af_open_modal(this);
+  $3('.af-btn-export').on('click', function () {
+    const id = $3(this).data('af');
+    const exportBtn = AF_BUTTONS.filter(btn => btn.id == id)[0];
+    if (!exportBtn) return;
+    console.log(exportBtn);
+
+    // const do_crop = $3(this).data('af_crop');
+    if ('true' == exportBtn.crop) {
+      af_open_modal(exportBtn);
     } else {
-      const no_crop_size = parseInt($3(this).data('af_size'));
-      af_curr_format = $3(this).data('af');
+      af_curr_format = exportBtn.id;
       $(this).find('.af-icon-dl').removeClass('af-hidden');
       af_get_export({
-        width: no_crop_size,
-        height: 0,
+        width: exportBtn.width ?? 0,
+        height: exportBtn.height ?? 0,
         x: 0,
         y: 0
       });
@@ -26,29 +30,53 @@ $3(function () {
 });
 
 function af_display() {
+  const theImage = $3('#theImage');
   const af_download = $3('#af-download-content');
-  if ($3('#customDownloadLink').length > 0) {
-    $3('#customDownloadLink').after(af_download);
-  } else if ($3('#card-informations').length > 0) {
-    $3('#card-informations').prepend(af_download);
-  } else if ($3('#standard').length > 0) {
-    $3('#standard').before(af_download);
+
+  switch (AF_SHOW_AS) {
+    case 'above':
+      theImage.prepend(af_download);
+      break;
+
+    case 'below':
+      if ($3('#customDownloadLink').length > 0) { // custom download link plugin
+        $3('#customDownloadLink').after(af_download);
+      } else {
+        theImage.find('img').after(af_download);
+      }
+      break;
+
+    case 'inside':
+      if ($3('#card-informations').length > 0) { // bootstrap darkroom
+        $3('#card-informations').prepend(af_download);
+      } else { // modus /default
+        $3('#standard').before(af_download);
+      }
+      break;
+
+    case 'link':
+      if ($3('#downloadSwitchBox').length > 0) { // modus / default
+        $3('#downloadSwitchBox ul').prepend(af_download.find('li'));
+      } else if ($3('.fa-download').length > 0) { // bootstrap darkroom
+        af_download.find('li').addClass('dropdown-item');
+        $3('.fa-download').parent().siblings().prepend(af_download.find('li'));
+      }
+      break;
   }
+
   af_modal.addClass(af_light_or_dark());
-  af_download.removeClass('af-hidden');
+  if ('link' !== AF_SHOW_AS) af_download.removeClass('af-hidden');
   af_load_event();
 }
 
-function af_open_modal(button) {
-  const btn = $3(button);
-  af_curr_format = btn.data('af');
-  const size = btn.data('af_size');
-  const name = btn.data('af_name');
-  const type = btn.data('af_type');
+function af_open_modal(btn) {
+  const name = btn.name;
+  const type = btn.ext;
 
-  af_start_cropper(size);
+  af_curr_format = btn.id;
+  af_start_cropper(btn.width, btn.height);
   $3('#af_name').html(name);
-  $3('#af_sizes').html(size);
+  $3('#af_sizes').html(`${btn.width}x${btn.height}`);
   $3('#af_type').html(type);
   af_modal.fadeIn();
 }
@@ -65,13 +93,12 @@ function af_load_event() {
     af_close_modal();
   });
 
-  $3('#af_modal_reset').on('click', function() {
+  $3('#af_modal_reset').on('click', function () {
     if (af_cropper) af_cropper.reset();
   });
 }
 
-function af_start_cropper(size) {
-  const ratio = size.split('x');
+function af_start_cropper(width, height) {
   const img = document.getElementById('af_modal_img');
   const options = {
     viewMode: 1,
@@ -79,14 +106,14 @@ function af_start_cropper(size) {
     autoCropArea: 1,
     cropBoxResizable: true,
     cropBoxMovable: true,
-    aspectRatio: ratio[0] / ratio[1],
+    aspectRatio: width / height,
     responsive: true,
     background: false,
     zoomOnWheel: false
   };
   af_cropper = new Cropper(img, options);
 
-  $3('#af_modal_download').on('click', function () {
+  $3('#af_modal_download').off('click').on('click', function () {
     if (af_clicked) return;
     af_clicked = true;
     $3('#af_wait_dl').removeClass('af-hidden');
@@ -95,7 +122,7 @@ function af_start_cropper(size) {
   });
 }
 
-function af_get_export(settings=null) {
+function af_get_export(settings = null) {
   const { width, height, x, y } = settings ? settings : af_cropper.getData();
 
   $3.ajax({
@@ -103,7 +130,7 @@ function af_get_export(settings=null) {
     type: 'POST',
     data: {
       image_id: AF_PICTURE_ID,
-      auto_format: af_curr_format,
+      export_id: af_curr_format,
       settings: {
         width,
         height,
@@ -114,7 +141,7 @@ function af_get_export(settings=null) {
     xhrFields: {
       responseType: 'blob'
     }
-  }).done(function(res, status, xhr) {
+  }).done(function (res, status, xhr) {
     let filename = af_curr_format + '_downloaded_piwigo_image.' + res.type.split('/')[1];
     const contentDisposition = xhr.getResponseHeader('Content-Disposition');
     if (contentDisposition) {
