@@ -24,7 +24,7 @@
 .af-config {
   text-align: start;
   gap: 30px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .af-add-format {
@@ -92,12 +92,9 @@
 }
 
 .af-tab-edit:hover,
-.af-tab-view:hover {
-  color: #ffa646;
-}
-
+.af-tab-view:hover,
 .af-tab-delete:hover {
-  color: #d75745;
+  color: #FF7700;
 }
 
 .af-action {

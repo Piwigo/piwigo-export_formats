@@ -36,7 +36,7 @@ $template->assign(array(
   'AF_PATH'=> AF_PATH,
   'AF_REALPATH'=> AF_REALPATH,
   'AF_ADMIN' => AF_ADMIN,
-  'TYPE_AVAILABLE' => af_get_available_ext()
+  'TYPE_AVAILABLE' => af_get_output_ext()
   ));
 
 $template->set_filename('af_admin_content', AF_REALPATH . '/admin/template/admin.tpl');

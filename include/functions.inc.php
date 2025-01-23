@@ -7,13 +7,15 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 function af_init()
 {
   global $conf, $page;
-  if (defined('IN_ADMIN'))
-  {
-    if (!isset($conf['auto_formats']))
-    {
-      $page['warnings'][] = l10n('Auto Formats : Missing $conf.auto_formats');
-    }
-  }
+
+  $conf['auto_formats_extended_list'] = conf_get_param('auto_formats_extended_list', array(
+    'heic',
+    'psd',
+    'tif',
+    'tiff',
+    'eps',
+    'ai'
+  ));
 }
 
 /**
@@ -38,9 +40,9 @@ function af_loc_end_picture()
   $current_picture = $picture['current'];
   $af_config = safe_unserialize($conf['af_config']);
   $all_export = af_get_all_export_btn(true);
-  if (!in_array($current_picture['file_ext'], af_get_available_ext())) return;
-  // if (!isset($conf['auto_formats'])) return;
-  // if (!$user['af_enabled_high']) return;
+
+  if (!$user['af_enabled_high']) return;
+  if (!af_check_ext($current_picture)) return;
   if (!$all_export) return;
   if ('admin' === $af_config['permission'] and !is_admin()) return;
   $group_by_user = af_get_group_by_user();
@@ -59,14 +61,48 @@ function af_loc_end_picture()
 }
 
 /**
- * `Auto Formats` : get available extensions
+ * `Auto Formats` : check picture extensions
  */
-function af_get_available_ext()
+function af_check_ext($picture)
+{
+  global $conf;
+
+  $ext = strtolower($picture['file_ext']);
+
+  if (in_array($ext, af_get_entry_ext()))
+  {
+    return true;
+  }
+
+  if (in_array($ext, $conf['auto_formats_extended_list']) and $picture['representative_ext'])
+  {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * `Auto Formats` : get available entry extensions
+ */
+function af_get_entry_ext()
 {
   return array(
     'png',
     'jpg',
     'jpeg',
+    'webp'
+  );
+}
+
+/**
+ * `Auto Formats` : get available output extensions
+ */
+function af_get_output_ext()
+{
+  return array(
+    'png',
+    'jpg',
     'webp'
   );
 }

@@ -3,7 +3,7 @@
 const str_delete_af_btn = "{'Are you sure you want to delete the "%s" button?'|translate|escape:javascript}";
 const str_af_and = "{'AND'|translate|escape:javascript}";
 const str_af_or = "{'OR'|translate|escape:javascript}";
-const str_af_ratio = "{'RATIO'|translate|escape:javascript}";
+const str_af_ratio = "{'AND'|translate|escape:javascript}";
 const str_af_add = "{'Add an export format'|translate|escape:javascript}";
 const str_af_edit = "{'Edit an export format'|translate|escape:javascript}";
 {/footer_script}

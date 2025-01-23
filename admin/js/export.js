@@ -67,8 +67,8 @@ function afBuildTemplate(btn, template) {
         break;
     }
 
-    template.find('.af-line-w').html(btn.width);
-    template.find('.af-line-h').html(btn.height);
+    template.find('.af-line-w').html(btn.width === 'auto' ? btn.width : `${btn.width}px`);
+    template.find('.af-line-h').html(btn.height === 'auto' ? btn.height :`${btn.height}px`);
 
     template.attr('id', "af_line_" + btn.id);
     template.find('.af-tab-view').attr('data-line', btn.id);
@@ -203,7 +203,7 @@ function afResetExportModal() {
   $('#af_export_radio_both input, #af_export_radio_custom input, #af_input_one_w').val('');
   $('#af_export_radio_one_default').trigger('click');
 
-  $('#af_icon').removeClass('icon-yellow icon-pencil').addClass('icon-blue icon-plus-circled');
+  $('#af_icon').removeClass('icon-green icon-pencil').addClass('icon-blue icon-plus-circled');
   $('#af_export_title').html(str_af_add);
 }
 
@@ -345,7 +345,7 @@ function afShowEditModal(btn) {
       break;
   }
 
-  $('#af_icon').removeClass('icon-blue icon-plus-circled').addClass('icon-yellow icon-pencil');
+  $('#af_icon').removeClass('icon-blue icon-plus-circled').addClass('icon-green icon-pencil');
   $('#af_export_title').html(str_af_edit);
 
   $('#af_export').fadeIn();

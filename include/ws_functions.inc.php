@@ -50,7 +50,7 @@ function af_add_methods($arr)
       ),
       'ext' => array(
         'flag' => WS_TYPE_NOTNULL,
-        'info' => 'Type included in $conf.picture_ext'
+        'info' => 'Extension included in '.implode(", ", af_get_output_ext()).' !'
       ),
       'type' => array(
         'flag' => WS_TYPE_NOTNULL,
@@ -90,7 +90,7 @@ function af_add_methods($arr)
       ),
       'ext' => array(
         'flag' => WS_TYPE_NOTNULL,
-        'info' => 'Type included in $conf.picture_ext'
+        'info' => 'Extension included in '.implode(", ", af_get_output_ext()).' !'
       ),
       'type' => array(
         'flag' => WS_TYPE_NOTNULL,
@@ -239,20 +239,6 @@ SELECT id
   return true;
 }
 
-// function af_is_authorized($image_id)
-// {
-
-//   $af_config = safe_unserialize($conf['af_config']);
-//   $all_export = af_get_all_export_btn();
-//   if (!in_array($current_picture['file_ext'], af_get_available_ext())) return;
-//   // if (!isset($conf['auto_formats'])) return;
-//   // if (!$user['af_enabled_high']) return;
-//   if (!$all_export) return;
-//   if ('admin' === $af_config['permission'] and !is_admin()) return;
-//   $group_by_user = af_get_group_by_user();
-//   if ('admin' !== $af_config['permission'] and !in_array($af_config['permission'], $group_by_user)) return;
-// }
-
 /**
  * `Auto Formats` : check method params
  */
@@ -263,9 +249,9 @@ function af_check_params($params)
     return 'The field name is not valid.';
   }
 
-  if (!in_array(strtolower($params['ext']), af_get_available_ext()))
+  if (!in_array(strtolower($params['ext']), af_get_output_ext()))
   {
-    return 'The extension is not: ' . implode(", ", af_get_available_ext());
+    return 'The extension is not: ' . implode(", ", af_get_output_ext());
   }
 
   if (!preg_match('/^(one|both|custom)$/', $params['type']))
@@ -347,8 +333,11 @@ SELECT *
     return new PwgError(WS_ERR_INVALID_PARAM, 'No images found');
   }
 
-  $picture_ext = get_extension($result['file']);
-  if (!in_array($picture_ext, af_get_available_ext()))
+  $result['file_ext'] = get_extension($result['file']);
+
+  // entry list jpg, jpeg, png, webp
+  // extended list heic, psd, tif, tiff, eps, ai => check representative_ext
+  if (!af_check_ext($result))
   {
     return new PwgError(403, 'The file is not a picture');
   }
