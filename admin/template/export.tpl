@@ -64,8 +64,7 @@ const str_af_edit = "{'Edit an export format'|translate|escape:javascript}";
         </select>
       </div>
       <div class="af-export-field">
-        <p class="af-export-field-label">{'Image dimensions'|translate}</p>
-        <p class="af-export-infos">{'None of your choice will ever distort your photo.'|translate}</p>
+        <p class="af-export-field-label">{'Image dimensions'|translate} <span class="tiptip icon-help-circled" title="{'None of your choice will ever distort your photo.'|translate}"></span></p>
         <select class="af-export-input" name="export_dimensions" id="export_dimensions">
           <option value="one">{'Set only one dimension'|translate}</option>
           <option value="both">{'Set both maximum dimensions'|translate}</option>

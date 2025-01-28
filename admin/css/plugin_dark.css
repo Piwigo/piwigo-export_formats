@@ -1,0 +1,37 @@
+.af-tab-line,
+.af-export-content,
+.af-delete-content {
+  background-color: #333;
+}
+
+.af-tab-line:hover {
+  background-color: #232323;
+}
+
+.af-tab-action span,
+.af-export-input,
+.af-input,
+.af-config-group,
+.af-delete-title,
+.af-export-title {
+  color: #777;
+}
+
+.af-tab-action span:hover {
+  color: #d47f44;
+}
+
+.af-export-input,
+.af-input {
+  background-color: #252525 !important;
+}
+
+.af-export-content input:focus,
+.af-export-content select:focus,
+.af-config-group:focus {
+  outline: none;
+}
+
+.af-config-group {
+  border: 2px solid #777;;
+}
