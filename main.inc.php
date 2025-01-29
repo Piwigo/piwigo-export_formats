@@ -1,7 +1,7 @@
 <?php
 /*
 Version: auto
-Plugin Name: Auto Formats
+Plugin Name: Export Formats
 Plugin URI: auto
 Author: Piwigo team
 Author URI: https://github.com/Piwigo
@@ -9,16 +9,19 @@ Description: Download export configurable formats.
 Has Settings: true
 */
 
+// The plugin name has officially changed from ‘Auto Formats’ to ‘Export Formats’ 
+// but in the code we have kept the prefixes: ‘auto_formats’, ‘af_*’.
+
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // check root directory
-if (basename(dirname(__FILE__)) != 'auto_formats')
+if (basename(dirname(__FILE__)) != 'export_formats')
 {
   add_event_handler('init', 'af_error');
   function af_error()
   {
     global $page;
-    $page['errors'][] = 'Auto-formats folder name is incorrect, uninstall the plugin and rename it to "auto_formats"';
+    $page['errors'][] = 'Export Formats folder name is incorrect, uninstall the plugin and rename it to "export_formats"';
   }
   return;
 }

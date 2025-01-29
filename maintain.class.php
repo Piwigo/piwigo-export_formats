@@ -1,7 +1,7 @@
 <?php
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
-class auto_formats_maintain extends PluginMaintain
+class export_formats_maintain extends PluginMaintain
 {
   private $table;
 
