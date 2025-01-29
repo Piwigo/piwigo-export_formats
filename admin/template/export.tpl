@@ -4,8 +4,13 @@ const str_delete_af_btn = "{'Are you sure you want to delete the "%s" button?'|t
 const str_af_and = "{'AND'|translate|escape:javascript}";
 const str_af_or = "{'OR'|translate|escape:javascript}";
 const str_af_ratio = "{'AND'|translate|escape:javascript}";
+const str_af_yes = "{'Yes'|translate|escape:javascript}";
+const str_af_no = "{'No'|translate|escape:javascript}";
 const str_af_add = "{'Add an export format'|translate|escape:javascript}";
 const str_af_edit = "{'Edit an export format'|translate|escape:javascript}";
+const str_af_btn = "{'Edit'|translate|escape:javascript}";
+const str_af_showhide = "{'Show/Hide'|translate|escape:javascript}";
+const str_af_delete = "{'Delete'|translate|escape:javascript}";
 {/footer_script}
 <div class="af-container">
   <p class="head-button-2 icon-plus-circled af-add-format" id="af_btn_add_format">{'Add an export format'|translate}</p>
@@ -51,7 +56,7 @@ const str_af_edit = "{'Edit an export format'|translate|escape:javascript}";
     <p class="af-export-title" id="af_export_title">{'Add an export format'|translate}</p>
     <div class="af-export-body">
       <div class="af-export-field">
-        <label class="af-export-field-label" for="export_name">{'Button name'|translate}</label>
+        <label class="af-export-field-label" for="export_name">{'Name'|translate}</label>
         <input class="af-export-input" name="export_name" id="export_name" />
       </div>
       <div class="af-export-field">
@@ -156,7 +161,7 @@ const str_af_edit = "{'Edit an export format'|translate|escape:javascript}";
       <p class="af-export-close" id="af_export_close">{'Close'|translate}</p>
       <div class="af-export-footer-group">
         <p class="af-hidden af-export-error" id="af_export_error"></p>
-        <p class="af-export-save" id="af_export_save"><span class="icon-floppy"></span>{'Save property'|translate}</p>
+        <p class="af-export-save" id="af_export_save"><span class="icon-floppy"></span>{'Save'|translate}</p>
       </div>
     </div>
   </div>

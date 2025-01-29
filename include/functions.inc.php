@@ -16,6 +16,8 @@ function af_init()
     'eps',
     'ai'
   ));
+
+  load_language('plugin.lang', AF_PATH);
 }
 
 /**

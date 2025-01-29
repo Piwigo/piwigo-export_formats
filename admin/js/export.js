@@ -45,7 +45,7 @@ function afBuildTemplate(btn, template) {
 
     template.find('.af-tab-name').html(btn.name);
     template.find('.af-tab-type').html(btn.ext);
-    template.find('.af-tab-crop').html(btn.crop == "true" ? "Yes" : "No");
+    template.find('.af-tab-crop').html(btn.crop == "true" ? str_af_yes : str_af_no);
     if ('false' == btn.activated) {
       template.find('.af-tab-view').removeClass('icon-eye').addClass('icon-eye-off');
     }
@@ -71,9 +71,9 @@ function afBuildTemplate(btn, template) {
     template.find('.af-line-h').html(btn.height === 'auto' ? btn.height :`${btn.height}px`);
 
     template.attr('id', "af_line_" + btn.id);
-    template.find('.af-tab-view').attr('data-line', btn.id);
-    template.find('.af-tab-edit').attr('data-line', btn.id);
-    template.find('.af-tab-delete').attr('data-line', btn.id);
+    template.find('.af-tab-view').attr('data-line', btn.id).attr('title', str_af_showhide).tipTip();
+    template.find('.af-tab-edit').attr('data-line', btn.id).attr('title', str_af_btn).tipTip();
+    template.find('.af-tab-delete').attr('data-line', btn.id).attr('title', str_af_delete).tipTip();
 
     return template;
 }

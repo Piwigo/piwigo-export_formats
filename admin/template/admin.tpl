@@ -5,5 +5,5 @@
 {if $themeconf['colorscheme'] == 'dark'}
   {combine_css path="{$AF_PATH}admin/css/plugin_dark.css" order=3}
 {/if}
-<h2>Auto formats</h2>
+<h2>{'Auto formats'|translate}</h2>
 {$AF_TAB_CONTENT}

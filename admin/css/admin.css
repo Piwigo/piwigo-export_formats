@@ -76,7 +76,7 @@
 }
 
 .af-tab-resize span {
-  min-width: 70px;
+  min-width: auto;
 }
 
 .af-tab-action {

@@ -36,8 +36,8 @@ const AF_BUTTONS = {$AF_BUTTONS|json_encode};
     <div class="af-modal-infos">
       <h2 id="af_name"></h2>
       <div>
-        <p>Dimensions : <span id="af_sizes"></span></p>
-        <p>Type : <span id="af_type"></span></p>
+        <p>{'Dimensions'|translate} : <span id="af_sizes"></span></p>
+        <p>{'Type'|translate} : <span id="af_type"></span></p>
       </div>
     </div>
     <div id="af_modal_container_img" style="position: relative;">
@@ -47,10 +47,10 @@ const AF_BUTTONS = {$AF_BUTTONS|json_encode};
     <div class="af-modal-footer">
       <a id="af_download" href="#" class="af-download-link"></a>
       <p class="af-left-btn">
-        <span id="af_modal_close" class="af-modal-btn close">Annuler</span>
-        <span id="af_modal_reset" class="af-modal-btn close">Réinitialiser</span>
+        <span id="af_modal_close" class="af-modal-btn close">{'Cancel'|translate}</span>
+        <span id="af_modal_reset" class="af-modal-btn close">{'AF_RESET'|translate}</span>
       </p>
-      <p id="af_modal_download" class="af-modal-btn download">Télécharger <span id="af_wait_dl"
+      <p id="af_modal_download" class="af-modal-btn download">{'Download'|translate} <span id="af_wait_dl"
           class="af-icon-dl af-hidden af-icon-spin6 animate-spin"></span></p>
     </div>
   </div>

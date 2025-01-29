@@ -9,8 +9,8 @@ $page['tab'] = isset($_GET['tab']) ? $_GET['tab'] : $page['tab'] = 'export';
 include_once(PHPWG_ROOT_PATH . 'admin/include/tabsheet.class.php');
 $tabsheet = new tabsheet();
 $tabsheet->set_id('auto_formats');
-$tabsheet->add('export', '<span class="icon-download"></span>Export formats', AF_ADMIN . '-export');
-$tabsheet->add('config', '<span class="icon-cog"></span>Configuration', AF_ADMIN . '-config');
+$tabsheet->add('export', '<span class="icon-download"></span>'.l10n('Export formats'), AF_ADMIN . '-export');
+$tabsheet->add('config', '<span class="icon-cog"></span>'.l10n('Configuration'), AF_ADMIN . '-config');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
