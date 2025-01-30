@@ -69,7 +69,7 @@ const str_af_delete = "{'Delete'|translate|escape:javascript}";
         </select>
       </div>
       <div class="af-export-field">
-        <p class="af-export-field-label">{'Image dimensions'|translate} <span class="tiptip icon-help-circled" title="{'None of your choice will ever distort your photo.'|translate}"></span></p>
+        <p class="af-export-field-label">{'Image dimensions'|translate} <span class="tiptip icon-help-circled" title="{'None of your choices will ever distort your photo.'|translate}"></span></p>
         <select class="af-export-input" name="export_dimensions" id="export_dimensions">
           <option value="one">{'Set only one dimension'|translate}</option>
           <option value="both">{'Set both maximum dimensions'|translate}</option>
@@ -78,10 +78,8 @@ const str_af_delete = "{'Delete'|translate|escape:javascript}";
         <div class="af-export-radio">
           <div class="af-export-radio-tab" id="af_export_radio_one">
             <p class="af-export-radio-infos">
-              {'The export will be at the exact dimension, the other will be depending on the original ratio of the photo.'|translate}
-            </p>
-            <p class="af-export-radio-infos">
-              {'You can only set on side.'|translate}
+              {'The export will use this exact dimension for one side, while the other side will be adjusted to maintain the photo\'s original aspect ratio.'|translate}
+              {'You can only set the dimension for one side.'|translate}
             </p>
             <div class="af-export-radio-one">
               <label class="font-checkbox selected" id="af_export_radio_one_default">
@@ -107,10 +105,7 @@ const str_af_delete = "{'Delete'|translate|escape:javascript}";
 
           <div class="af-export-radio-tab" id="af_export_radio_both">
             <p class="af-export-radio-infos">
-              {'If your photo is landscape, the max dimension will be the width. If its in portrait, the max dim will be the height. In any case you’ll keep the original ratio.'|translate}
-            </p>
-            <p class="af-export-radio-infos">
-              {'Depending on the ratio of your photo, the download will take into account the defined width or height.'|translate}
+              {'If your photo is in landscape mode, the maximum dimension will be the width. If it’s in portrait mode, the maximum dimension will be the height. In both cases, the original aspect ratio will be preserved.'|translate}
             </p>
             <div class="af-export-radio-both">
               <div class="af-export-radio-w">
@@ -132,10 +127,7 @@ const str_af_delete = "{'Delete'|translate|escape:javascript}";
 
           <div class="af-export-radio-tab" id="af_export_radio_custom">
             <p class="af-export-radio-infos">
-              {'Crop will allow you to choose the zone you want.'|translate}
-            </p>
-            <p class="af-export-radio-infos">
-              {'Set dimensions for the two side and it will allow you to crop and choose wich zone of your photo to download. It won\'t be distort.'|translate}
+              {'Setting dimensions for both sides will allow you to crop and choose which part of your photo to export. This ensures it won’t be distorted.'|translate}
             </p>
             <div class="af-export-radio-custom">
               <div class="af-export-radio-w">
