@@ -26,6 +26,7 @@ class export_formats_maintain extends PluginMaintain
    */
   function install($plugin_version, &$errors = array())
   {
+    // TODO: convert auto_formats table into conf_params
     global $conf;
     if (empty($conf['af_config']))
     {
