@@ -41,8 +41,13 @@ const AF_BUTTONS = {$AF_BUTTONS|json_encode};
       </div>
     </div>
     <div id="af_modal_container_img" style="position: relative;">
+    {if isset($current.unique_derivatives['medium'])}
       <img id="af_modal_img" class="af-modal-img"
         src="{$current.unique_derivatives['medium']->get_url()|@escape:javascript}" />
+    {else}
+      <img id="af_modal_img" class="af-modal-img"
+        src="{$current.path|@escape:javascript}" />
+    {/if}
     </div>
     <div class="af-modal-footer">
       <a id="af_download" href="#" class="af-download-link"></a>
