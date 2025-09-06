@@ -1,0 +1,1 @@
+Formats d'exportació i descàrrega configurables.
