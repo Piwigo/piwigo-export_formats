@@ -16,13 +16,13 @@ const AF_BUTTONS = {$AF_BUTTONS|json_encode};
   <div class="af-buttons">
     {if isset($AF_BUTTONS)}
       {if 'link' !== $AF_SHOW_AS}
-        {foreach from=$AF_BUTTONS item=$button}
+        {foreach from=$AF_BUTTONS item=button}
           <p class="af-button af-btn-export" data-af="{$button.id}" title="{$button.name} - {$button.ext} - {$button.type}">
             {if 'false' == $button.crop}<span class="af-icon-dl af-hidden af-icon-spin6 animate-spin"></span>{/if} {$button.name}
           </p>
         {/foreach}
       {else}
-        {foreach from=$AF_BUTTONS item=$button}
+        {foreach from=$AF_BUTTONS item=button}
           <li class="af-btn-export" data-af="{$button.id}" title="{$button.name} - {$button.ext} - {$button.type}">
             <a class="af-link"><span>{$button.name}</span></a>
           </li>
