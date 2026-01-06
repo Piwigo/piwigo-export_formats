@@ -25,3 +25,4 @@ $lang['The export will use this exact dimension for one side, while the other si
 $lang['You can only set the dimension for one side.'] = 'You can only set the dimension for one side.';
 $lang['If your photo is in landscape mode, the maximum dimension will be the width. If it’s in portrait mode, the maximum dimension will be the height. In both cases, the original aspect ratio will be preserved.'] = 'If your photo is in landscape mode, the maximum dimension will be the width. If it’s in portrait mode, the maximum dimension will be the height. In both cases, the original aspect ratio will be preserved.';
 $lang['Setting dimensions for both sides will allow you to crop and choose which part of your photo to export. This ensures it won’t be distorted.'] = 'Setting dimensions for both sides will allow you to crop and choose which part of your photo to export. This ensures it won’t be distorted.';
+$lang['Export'] = 'Export';

@@ -12,7 +12,7 @@ const AF_SHOW_AS = "{$AF_SHOW_AS|escape:javascript}";
 const AF_BUTTONS = {$AF_BUTTONS|json_encode};
 {/footer_script}
 <div id="af-download-content" class="af-download af-hidden">
-  <h4>Exporter</h4>
+  <h4>{'Export'|translate}</h4>
   <div class="af-buttons">
     {if isset($AF_BUTTONS)}
       {if 'link' !== $AF_SHOW_AS}
