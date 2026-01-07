@@ -50,7 +50,7 @@ function af_loc_end_picture()
   $group_by_user = af_get_group_by_user();
   if ('admin' !== $af_config['permission'] and !in_array($af_config['permission'], $group_by_user)) return;
 
-  $compatibily = in_array('custom_download_link', af_get_plugins_list()) and 'link' === $af_config['show_as'];
+  $compatibily = in_array('custom_download_link', af_get_plugins_list()) && 'link' === $af_config['show_as'];
   
   $template->set_filename('auto_formats_picture', AF_REALPATH . '/template/picture.tpl');
   $template->assign(array(
