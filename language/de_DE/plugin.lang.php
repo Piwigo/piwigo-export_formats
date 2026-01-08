@@ -30,3 +30,4 @@ $lang['AF_RESET'] = 'Zurücksetzen';
 $lang['AND'] = 'UND';
 $lang['Add an export format'] = 'Exportformat hinzufügen';
 $lang['Allow a specific group'] = 'Eine bestimmte Gruppe zulassen';
+$lang['Export'] = 'Exportieren';
