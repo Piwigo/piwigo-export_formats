@@ -30,3 +30,4 @@ $lang['None of your choices will ever distort your photo.'] = '您的任何选�
 $lang['OR'] = '或';
 $lang['Set both maximum dimensions'] = '设置最大宽度和高度';
 $lang['Set only one dimension'] = '仅设置一个尺寸';
+$lang['Export'] = '导出';
