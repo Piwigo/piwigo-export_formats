@@ -30,3 +30,4 @@ $lang['None of your choices will ever distort your photo.'] = 'Ekkert af vali þ
 $lang['OR'] = 'EÐA';
 $lang['Set both maximum dimensions'] = 'Stilltu bæði hámarksvíddir';
 $lang['Set only one dimension'] = 'Stilltu aðeins eina vídd';
+$lang['Export'] = 'Flytja út';
