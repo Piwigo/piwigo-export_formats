@@ -30,3 +30,4 @@ $lang['None of your choices will ever distort your photo.'] = 'אף אחת מב�
 $lang['OR'] = 'או';
 $lang['Set both maximum dimensions'] = 'קבע את שתי המידות המרביות';
 $lang['Set only one dimension'] = 'קבע מידה אחת בלבד';
+$lang['Export'] = 'יצוא';
