@@ -30,3 +30,4 @@ $lang['Buttons inside the informations block'] = 'Botons dins el bloc d\'informa
 $lang['Crop at custom dimensions'] = 'Retalla a dimensions personalitzades';
 $lang['Edit an export format'] = 'Edita un format d\'exportació';
 $lang['AF_RESET'] = 'Restableix';
+$lang['Export'] = 'Exporta';
