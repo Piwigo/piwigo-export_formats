@@ -30,3 +30,4 @@ $lang['Edit an export format'] = 'Bewerk een export formaat';
 $lang['Export formats'] = 'Export formaten';
 $lang['Image dimensions'] = 'Afbeelding maten';
 $lang['OR'] = 'OF';
+$lang['Export'] = 'Export';
