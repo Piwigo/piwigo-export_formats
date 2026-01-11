@@ -30,3 +30,4 @@ $lang['Show as'] = 'Mostrar como';
 $lang['Show/Hide'] = 'Mostrar/Ocultar';
 $lang['The export will use this exact dimension for one side, while the other side will be adjusted to maintain the photo\'s original aspect ratio.'] = 'La exportación utilizará esta dimensión exacta para uno de los lados, mientras que el otro se ajustará para mantener la relación de aspecto original de la foto.';
 $lang['You can only set the dimension for one side.'] = 'Sólo se puede definir la dimensión para un lado.';
+$lang['Export'] = 'Exportar';
