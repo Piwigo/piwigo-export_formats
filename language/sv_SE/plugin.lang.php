@@ -30,3 +30,4 @@ $lang['None of your choices will ever distort your photo.'] = 'Inget av dina val
 $lang['OR'] = 'ELLER';
 $lang['Set both maximum dimensions'] = 'Ställ in båda maximala måtten';
 $lang['Set only one dimension'] = 'Ställ in endast en dimension';
+$lang['Export'] = 'Export';
