@@ -30,3 +30,4 @@ $lang['Set both maximum dimensions'] = 'Imposta entrambe le dimensioni massime';
 $lang['Set only one dimension'] = 'Imposta solo una dimensione';
 $lang['Setting dimensions for both sides will allow you to crop and choose which part of your photo to export. This ensures it won’t be distorted.'] = 'Impostare le dimensioni per entrambi i lati ti permetterà di ritagliare e scegliere quale parte della foto esportare. Questo garantisce che essa non venga distorta.';
 $lang['Image dimensions'] = 'Dimensioni immagine';
+$lang['Export'] = 'Esportare';
