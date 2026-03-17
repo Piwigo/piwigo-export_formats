@@ -166,7 +166,7 @@ SELECT group_id
 
   $result = query2array($query, null, 'group_id');
   if ($result) return $result;
-  return false;
+  return [];
 }
 
 /**
