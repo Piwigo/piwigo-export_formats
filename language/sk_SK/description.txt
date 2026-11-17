@@ -1,0 +1,1 @@
+Stiahnuť formáty, ktoré je možné konfigurovať pre export.
